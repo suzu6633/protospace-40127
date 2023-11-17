@@ -1,0 +1,15 @@
+<div class="card">
+  <%= link_to prototype_path(prototype) do %>
+    <%= image_tag(prototype.image, class: 'prototype-image') if prototype.image.attached? %>
+  <% end %>
+  <div class="card__body">
+    <%= link_to(prototype_path(prototype), class: :card__title) do %>
+      <%= "プロトタイプのタイトル" %>
+    <% end %>
+    <p class="card__summary">
+      <%= "プロトタイプのキャッチコピー" %>
+    </p>
+    <% user = User.find_by(id: prototype.user_id) %>
+    <%= link_to("by #{user&.name}", user_path(user), class: :card__user) if user %>
+  </div>
+</div>
