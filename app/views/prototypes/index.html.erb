@@ -9,6 +9,8 @@
     <div class="card__wrapper">
       <% if @prototypes.present? %>
         <%= render partial: 'prototype', collection: @prototypes %>
+        <% else %>
+        <p>No prototypes available.</p>
       <% end %>
     </div>
   </div>
