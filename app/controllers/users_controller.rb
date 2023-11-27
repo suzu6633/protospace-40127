@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  
   def new
     @user = User.new
   end
@@ -10,9 +12,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @prototype = Prototype.all
     user_id = params[:id]
     @user = User.find(user_id)
+    @prototype = Prototype.all
+    @prototypes = @user.prototypes
   end
 
   def edit
@@ -22,7 +25,14 @@ class UsersController < ApplicationController
     if current_user.update(user_params)
       redirect_to root_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    @user = User.find(params[:id])
+    prototype.destroy
+    redirect_to root_path
+  end
+
 end

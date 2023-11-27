@@ -1,8 +1,10 @@
 class PrototypesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_prototype, only: [:edit, :show, :update, :destroy]
   # before_action :authorize_user!, only: [:edit, :update, :destroy]
   before_action :move_to_index, except: [:index, :show]
+  before_action :check_owner, only: [:edit, :update, :destroy]
 
   def index
     @prototypes = Prototype.all
@@ -32,17 +34,16 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    prototype = Prototype.find(params[:id])
-    if prototype.update(prototype_params)
-      redirect_to prototype_path
+    if @prototype.update(prototype_params)
+      redirect_to prototype_path(@prototype)
     else
       render :edit
     end
   end
 
   def destroy
-    prototype = Prototype.find(params[:id])
-    prototype.destroy
+    @prototype = Prototype.find(params[:id])
+    @prototype.destroy
     redirect_to root_path
   end
 
@@ -53,7 +54,7 @@ class PrototypesController < ApplicationController
   end
 
   def set_prototype
-    @prototype = Prototype
+    @prototype = Prototype.find(params[:id])
   end
   
 
@@ -64,7 +65,11 @@ class PrototypesController < ApplicationController
   end
 
   def authorize_user!
-      redirect_to root_path
-    end
+    redirect_to root_path
   end
 
+  def check_owner
+    # ログインユーザーがプロトタイプのオーナーでなければトップページにリダイレクト
+    redirect_to root_path unless current_user == @prototype.user
+  end
+end

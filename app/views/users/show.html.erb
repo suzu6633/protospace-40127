@@ -30,13 +30,10 @@
       </h2>
 
       <div class="user__card">
-        <% @user.prototypes.each do |prototype| %>
-          <div class="prototype__card">
-            <%= link_to prototype_path(prototype) do %>
-              <%= image_tag prototype.image.variant(resize: "300x200") %>
-              <p class="prototype__title"><%= prototype.title %></p>
-            <% end %>
-          </div>
+        <% if @prototypes.present? %>
+          <%= render partial: 'shared/prototype', collection: @prototypes, as: :prototype %>
+        <% else %>
+          <p>No prototypes available.</p>
         <% end %>
       </div>
     </div>

@@ -4,13 +4,8 @@
       <h2 class="page-heading">プロトタイプ編集</h2>
       <%# 部分テンプレートでフォームを表示する %>
       <%= form_with(model: @prototype, local: true) do |form| %>
-        <% if @prototype.present? && user_signed_in? && current_user.id == @prototype.user_id %>
-         <div class="prototype__manage">
-          <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %>
-          <%= link_to '削除する', prototype_path(@prototype), method: :delete, data: { turbo_method: :delete } %>
-         </div>
+         
          <%= render partial: 'form', locals: { prototype: @prototype } %>
-        <% end %>
       <% end %>
     </div>
   </div>
