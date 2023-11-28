@@ -9,9 +9,7 @@
       <div class="prototype__user">
         <% if @prototype.user.present? %>
           <% if user_signed_in? %>
-            <%= link_to "by #{current_user.name}", user_path(@prototype.user), class: :prototype__user %>
-          <% else %>
-            <%= "by ゲストさん" %>
+            <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
           <% end %>
         <% end %>
       </div>
