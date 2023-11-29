@@ -10,9 +10,6 @@
         <% if @prototype.user.present? %>
           <% if user_signed_in? %>
             <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
-          <% else %>
-            <!-- ログアウト状態の場合もユーザー詳細ページにリンクできるように修正 -->
-            <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
           <% end %>
         <% end %>
       </div>
