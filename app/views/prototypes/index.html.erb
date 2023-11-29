@@ -2,9 +2,7 @@
   <div class="inner">
     <div class="greeting">
       <%= "こんにちは、"%>
-      <% if user_signed_in? %>
-        <%= link_to "#{current_user.name}さん", user_path(current_user), class: :greeting__link%>
-      <% end %>
+        <%= link_to "#{current_user.name}さん", user_path(current_user), class: :greeting__link if user_signed_in? %>
     </div>
     <div class="card__wrapper">
       <% if @prototypes.present? %>
