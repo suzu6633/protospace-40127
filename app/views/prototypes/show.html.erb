@@ -11,6 +11,7 @@
           <% if user_signed_in? %>
             <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
           <% else %>
+            <!-- ログアウト状態の場合もユーザー詳細ページにリンクできるように修正 -->
             <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %>
           <% end %>
         <% end %>
@@ -44,7 +45,7 @@
       <% end %>
       <!-- Move this block inside the condition -->
       <div class="prototype__comments">
-        <% if user_signed_in? %>
+       <% if user_signed_in? %>
           <%= form_with(model: [@prototype, @comment], local: true) do |f| %>
             <div class="field">
               <%= f.label :comment_content, "コメント" %><br />
